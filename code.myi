@@ -1,0 +1,69 @@
+CREATE DATABASE National_Park;
+USE National_Park;
+
+CREATE TABLE PARKAREA (
+  GEOCODE CHAR(4) PRIMARY KEY NOT NULL, 
+  PNAME VARCHAR(16) NOT NULL, 
+  AREA DECIMAL NOT NULL, 
+  SPONSORNAME VARCHAR(32) NOT NULL, 
+  STARTDATE DATE NOT NULL, 
+  NEXTEVENT DATE NOT NULL
+);
+
+INSERT INTO PARKAREA (GEOCODE, PNAME, AREA, SPONSORNAME, STARTDATE, NEXTEVENT) VALUES
+  ('K003', 'South Meadow', 45.6, 'Newton School', '2011-12-01', '2015-12-30'),
+  ('K002', 'Bear Caves', 67.0, 'Ibn Khaldun Club', '2009-05-15', '2016-01-29'),
+  ('K010', 'Bird Lake', 12.3, 'Rotary Club', '2013-11-21', '2016-04-24'),
+  ('K009', 'Old Forest', 95.8, 'Newton School', '2015-03-01', '2016-04-24'),   
+  ('K011', 'Rocky Hill', 23.3, 'Changs Autos', '2012-12-01', '2016-02-11'),
+  ('K005', 'Piney Woods', 65.5, 'Friends of Nature', '2012-03-01', '2016-03-05');
+
+
+CREATE TABLE RANGER_MASTER (
+  BADGENUM CHAR(4) PRIMARY KEY NOT NULL,
+  SURNAME VARCHAR(16) NOT NULL, 
+  FIRSTNAME VARCHAR(16) NOT NULL, 
+  DOB DATE NOT NULL
+);
+
+INSERT INTO RANGER_MASTER (BADGENUM, SURNAME, FIRSTNAME, DOB)VALUES
+    ('B007', 'Singh', 'Simon', '1991-11-27'),
+    ('B006', 'Hardy', 'Lucy', '1982-03-12'),
+    ('B012', 'Sen', 'May', '1989-09-01'),
+    ('B023', 'Shariff', 'Athar', '1984-08-23'),
+    ('B020', 'Rabin', 'Rebecca', '1986-07-09'),
+    ('B045', 'Kutuzov', 'Vasilli', '1983-10-25');
+
+
+CREATE TABLE RANGER_EXPERT ( 
+  BADGENUM CHAR(4)  NOT NULL, 
+  WOODCRAFT_SKILL VARCHAR(32) NOT NULL);
+
+INSERT INTO RANGER_EXPERT (BADGENUM, WOODCRAFT_SKILL) VALUES
+    ('B007', 'First Aid'),
+    ('B007', 'Trailcraft'),
+    ('B007', 'Birdcalls'),
+    ('B007', 'Veterinary'),
+    ('B006', 'First Aid'),
+    ('B006', 'Veterinary'),
+    ('B006', 'Firemaking'),
+    ('B023', 'Trailcraft'),
+    ('B023', 'Wild Food Finding'),
+    ('B045', 'Veterinary');
+
+CREATE TABLE RANGER_PARKAREA (
+  BADGENUM CHAR(4) NOT NULL,
+  GEOCODE CHAR(4) NOT NULL, 
+  DATA_ASSIGNED DATE NOT NULL
+);
+
+INSERT INTO RANGER_PARKAREA (BADGENUM, GEOCODE, DATA_ASSIGNED) VALUES
+ 	  ('B007', 'K003', '2011-12-06'),
+  	('B007', 'K010', '2010-01-23'),
+ 	  ('B020', 'K003', '2004-11-22'),
+   	('B023', 'K003', '2013-04-15'),
+   	('B023', 'K005', '2012-04-04'),
+   	('B012', 'K010', '2012-12-21'),
+    ('B012', 'K005', '2014-03-01'),
+   	('B012', 'K002', '2015-10-20');
+
