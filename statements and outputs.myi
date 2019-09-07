@@ -121,3 +121,160 @@ SELECT * FROM RANGER_PARKAREA;
 | B012     | K005    | 2014-03-01    |
 | B012     | K002    | 2015-10-20    |
 +----------+---------+---------------+
+
+
+
+SELECT DISTINCT FIRSTNAME, SURNAME
+FROM RANGER_MASTER;
+
+RESULT:
++-----------+---------+
+| FIRSTNAME | SURNAME |
++-----------+---------+
+| Lucy      | Hardy   |
+| Simon     | Singh   |
+| May       | Sen     |
+| Rebecca   | Rabin   |
+| Athar     | Shariff |
+| Vasilli   | Kutuzov |
++-----------+---------+
+
+
+
+SELECT DISTINCT FIRSTNAME, SURNAME
+FROM RANGER_MASTER   
+ORDER BY SURNAME ASC;
+
+RESULT:
++-----------+---------+
+| FIRSTNAME | SURNAME |
++-----------+---------+
+| Lucy      | Hardy   |
+| Vasilli   | Kutuzov |
+| Rebecca   | Rabin   |
+| May       | Sen     |
+| Athar     | Shariff |
+| Simon     | Singh   |
++-----------+---------+
+
+
+
+SELECT BADGENUM
+FROM RANGER_MASTER
+WHERE DOB < '1987';
+
+RESULT:
++----------+
+| BADGENUM |
++----------+
+| B006     |
+| B020     |
+| B023     |
+| B045     |
++----------+
+
+
+
+SELECT BADGENUM
+FROM RANGER_MASTER
+WHERE DOB =(SELECT MAX(DOB) FROM RANGER_MASTER);
+
+RESULT:
++----------+
+| BADGENUM |
++----------+
+| B007     |
++----------+
+
+
+
+SELECT COUNT(BADGENUM) FROM RANGER_MASTER;
+
+RESULT:
++-----------------+
+| COUNT(BADGENUM) |
++-----------------+
+|               6 |
++-----------------+
+
+
+
+SELECT PNAME FROM PARKAREA
+WHERE STARTDATE = (SELECT MIN(STARTDATE) FROM PARKAREA);
+
+RESULT:
++------------+
+| PNAME      |
++------------+
+| Bear Caves |
++------------+
+
+
+
+SELECT BADGENUM 
+FROM RANGER_PARKAREA
+WHERE GEOCODE = ANY (SELECT GEOCODE 
+                      FROM PARKAREA 
+                      WHERE SPONSORNAME = 'Newton    School');
+
+RESULT:
++----------+
+| BADGENUM |
++----------+
+| B007     |
+| B020     |
+| B023     |
++----------+
+
+
+
+SELECT SURNAME, FIRSTNAME
+FROM RANGER_MASTER
+WHERE BADGENUM = ANY (SELECT BADGENUM 
+                      FROM RANGER_PARKAREA 
+                      WHERE GEOCODE = ANY (SELECT GEOCODE 
+                                            FROM PARKAREA 
+                                            WHERE SPONSORNAME = 'Rotary Club' OR 'Changs Autos'));
+
+RESULT:
++---------+-----------+
+| SURNAME | FIRSTNAME |
++---------+-----------+
+| Singh   | Simon     |
+| Sen     | May       |
++---------+-----------+
+
+
+
+
+SELECT FIRSTNAME, SURNAME
+FROM RANGER_MASTER
+WHERE BADGENUM =  ANY (SELECT BADGENUM 
+                        FROM RANGER_EXPERT 
+                        WHERE WOODCRAFT_SKILL = 'Trailcraft');
+
+RESULT:
++-----------+---------+
+| FIRSTNAME | SURNAME |
++-----------+---------+
+| Simon     | Singh   |
+| Athar     | Shariff |
++-----------+---------+
+
+
+
+
+SELECT BADGENUM
+FROM RANGER_EXPERT
+WHERE WOODCRAFT_SKILL = ANY (SELECT WOODCRAFT_SKILL 
+                            FROM RANGER_EXPERT 
+                            WHERE WOODCRAFT_SKILL ='VETERINARY' OR 'FIRST AID');
+
+RESULT:
++----------+
+| BADGENUM |
++----------+
+| B007     |
+| B006     |
+| B045     |
++----------+
