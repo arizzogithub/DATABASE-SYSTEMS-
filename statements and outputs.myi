@@ -1,0 +1,123 @@
+
+SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| National_Park      |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+
+SHOW TABLES;
++-------------------------+
+| Tables_in_national_park |
++-------------------------+
+| PARKAREA                |
+| RANGER_EXPERT           |
+| RANGER_MASTER           |
+| RANGER_PARKAREA         |
++-------------------------+
+
+
+DESCRIBE PARKAREA;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| GEOCODE     | char(4)       | NO   | PRI | NULL    |       |
+| PNAME       | varchar(16)   | NO   |     | NULL    |       |
+| AREA        | decimal(10,0) | NO   |     | NULL    |       |
+| SPONSORNAME | varchar(32)   | NO   |     | NULL    |       |
+| STARTDATE   | date          | NO   |     | NULL    |       |
+| NEXTEVENT   | date          | NO   |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+
+
+DESCRIBE RANGER_MASTER;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| BADGENUM  | char(4)     | NO   | PRI | NULL    |       |
+| SURNAME   | varchar(16) | NO   |     | NULL    |       |
+| FIRSTNAME | varchar(16) | NO   |     | NULL    |       |
+| DOB       | date        | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+
+DESCRIBE RANGER_EXPERT;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| BADGENUM        | char(4)     | NO   |     | NULL    |       |
+| WOODCRAFT_SKILL | varchar(32) | NO   |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+
+DESCRIBE RANGER_PARKAREA;
++---------------+---------+------+-----+---------+-------+
+| Field         | Type    | Null | Key | Default | Extra |
++---------------+---------+------+-----+---------+-------+
+| BADGENUM      | char(4) | NO   |     | NULL    |       |
+| GEOCODE       | char(4) | NO   |     | NULL    |       |
+| DATA_ASSIGNED | date    | NO   |     | NULL    |       |
++---------------+---------+------+-----+---------+-------+
+
+
+SELECT * FROM PARKAREA;
++---------+--------------+------+-------------------+------------+------------+
+| GEOCODE | PNAME        | AREA | SPONSORNAME       | STARTDATE  | NEXTEVENT  |
++---------+--------------+------+-------------------+------------+------------+
+| K002    | Bear Caves   |   67 | Ibn Khaldun Club  | 2009-05-15 | 2016-01-29 |
+| K003    | South Meadow |   46 | Newton School     | 2011-12-01 | 2015-12-30 |
+| K005    | Piney Woods  |   66 | Friends of Nature | 2012-03-01 | 2016-03-05 |
+| K009    | Old Forest   |   96 | Newton School     | 2015-03-01 | 2016-04-24 |
+| K010    | Bird Lake    |   12 | Rotary Club       | 2013-11-21 | 2016-04-24 |
+| K011    | Rocky Hill   |   23 | Changs Autos      | 2012-12-01 | 2016-02-11 |
++---------+--------------+------+-------------------+------------+------------+
+
+
+SELECT * FROM RANGER_MASTER;
++----------+---------+-----------+------------+
+| BADGENUM | SURNAME | FIRSTNAME | DOB        |
++----------+---------+-----------+------------+
+| B006     | Hardy   | Lucy      | 1982-03-12 |
+| B007     | Singh   | Simon     | 1991-11-27 |
+| B012     | Sen     | May       | 1989-09-01 |
+| B020     | Rabin   | Rebecca   | 1986-07-09 |
+| B023     | Shariff | Athar     | 1984-08-23 |
+| B045     | Kutuzov | Vasilli   | 1983-10-25 |
++----------+---------+-----------+------------+
+
+
+SELECT * FROM RANGER_EXPERT;
++----------+-------------------+
+| BADGENUM | WOODCRAFT_SKILL   |
++----------+-------------------+
+| B007     | First Aid         |
+| B007     | Trailcraft        |
+| B007     | Birdcalls         |
+| B007     | Veterinary        |
+| B006     | First Aid         |
+| B006     | Veterinary        |
+| B006     | Firemaking        |
+| B023     | Trailcraft        |
+| B023     | Wild Food Finding |
+| B045     | Veterinary        |
++----------+-------------------+
+
+
+SELECT * FROM RANGER_PARKAREA;
++----------+---------+---------------+
+| BADGENUM | GEOCODE | DATA_ASSIGNED |
++----------+---------+---------------+
+| B007     | K003    | 2011-12-06    |
+| B007     | K010    | 2010-01-23    |
+| B020     | K003    | 2004-11-22    |
+| B023     | K003    | 2013-04-15    |
+| B023     | K005    | 2012-04-04    |
+| B012     | K010    | 2012-12-21    |
+| B012     | K005    | 2014-03-01    |
+| B012     | K002    | 2015-10-20    |
++----------+---------+---------------+
